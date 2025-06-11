@@ -10,10 +10,12 @@
         <a class="navbar-brand" href="{{ url_for('index') }}">MaintainX Clone</a>
         <ul class="navbar-nav ml-auto">
           {% if current_user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('main.assets') }}">Assets</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('main.work_orders') }}">Work Orders</a></li>
             <li class="nav-item"><a class="nav-link" href="#">{{ current_user.username }}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a></li>
           {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('main.login') }}">Login</a></li>
           {% endif %}
         </ul>
       </div>

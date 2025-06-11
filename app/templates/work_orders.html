@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Work Orders</h2>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.create_work_order') }}">Add Work Order</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Asset</th>
+      <th>Assigned To</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Due</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for wo in work_orders %}
+    <tr>
+      <td>{{ wo.title }}</td>
+      <td>{{ wo.asset.name if wo.asset else '' }}</td>
+      <td>{{ wo.assignee.username if wo.assignee else '' }}</td>
+      <td>{{ wo.status }}</td>
+      <td>{{ wo.priority }}</td>
+      <td>{{ wo.due_date.date() if wo.due_date else '' }}</td>
+      <td>
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('main.edit_work_order', id=wo.id) }}">Edit</a>
+        <form method="post" action="{{ url_for('main.delete_work_order', id=wo.id) }}" style="display:inline;">
+          <button class="btn btn-sm btn-danger" onclick="return confirm('Delete work order?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
