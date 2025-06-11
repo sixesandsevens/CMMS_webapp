@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
+    work_orders = db.relationship('WorkOrder', backref='assignee', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -26,6 +27,7 @@ class Asset(db.Model):
     serial_number = db.Column(db.String(64))
     description = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    work_orders = db.relationship('WorkOrder', backref='asset', lazy='dynamic')
 
 class WorkOrder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,4 +38,5 @@ class WorkOrder(db.Model):
     status = db.Column(db.String(32), default='Open')
     priority = db.Column(db.String(32), default='Normal')
     due_date = db.Column(db.DateTime)
+    recurring_interval_days = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
