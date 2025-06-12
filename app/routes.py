@@ -54,7 +54,11 @@ def register():
 
 def process_recurring_workorders():
     """Create next work order for completed recurring tasks."""
-    for wo in WorkOrder.query.filter(WorkOrder.recurring_interval_days != None, WorkOrder.status == 'Completed').all():
+    for wo in WorkOrder.query.filter(
+        WorkOrder.recurring_interval_days != None,
+        WorkOrder.status == 'Completed',
+        WorkOrder.due_date != None,
+    ).all():
         next_due = wo.due_date + timedelta(days=wo.recurring_interval_days)
         exists = WorkOrder.query.filter_by(
             asset_id=wo.asset_id,
