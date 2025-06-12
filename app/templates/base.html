@@ -7,7 +7,7 @@
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">MaintainX Clone</a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">MaintainX Clone</a>
         <ul class="navbar-nav ml-auto">
           {% if current_user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.assets') }}">Assets</a></li>
